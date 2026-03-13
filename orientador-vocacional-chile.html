@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Qué estudiar? — Orientador Vocacional Chile</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --card: #191d27;
+    --border: #252a36;
+    --border-light: #2e3547;
+    --text: #e8eaf0;
+    --muted: #7a829a;
+    --dim: #4a5168;
+    --accent: #f0a500;
+    --accent2: #e05c3a;
+    --green: #3ecf8e;
+    --blue: #4d9de0;
+    --purple: #9b72cf;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* BACKGROUND TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 50% at 20% 10%, rgba(240,165,0,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(77,157,224,0.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HEADER */
+  header {
+    padding: 64px 0 48px;
+    text-align: center;
+  }
+
+  .header-tag {
+    display: inline-block;
+    background: rgba(240,165,0,0.12);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    border: 1px solid rgba(240,165,0,0.2);
+    margin-bottom: 28px;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(42px, 7vw, 72px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+
+  h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 460px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* QUIZ WRAPPER */
+  #quiz-wrapper {
+    padding-bottom: 80px;
+  }
+
+  /* PROGRESS */
+  .progress-bar-wrap {
+    height: 2px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 40px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .progress-label {
+    text-align: right;
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  /* QUESTION CARD */
+  .question-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 20px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .q-number {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .q-text {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(20px, 3vw, 26px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.35;
+    margin-bottom: 8px;
+  }
+
+  .q-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  /* OPTIONS GRID */
+  .options-grid {
+    display: grid;
+    gap: 10px;
+  }
+
+  .options-grid.cols-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .option-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .option-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(240,165,0,0.06), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .option-btn:hover::before { opacity: 1; }
+
+  .option-btn:hover {
+    border-color: var(--border-light);
+    transform: translateY(-1px);
+  }
+
+  .option-btn.selected {
+    border-color: var(--accent);
+    background: rgba(240,165,0,0.08);
+  }
+
+  .option-btn.selected::before { opacity: 1; }
+
+  .option-emoji {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .option-label {
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 2px;
+  }
+
+  .option-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* SLIDER QUESTION */
+  .slider-wrap {
+    padding: 8px 0 20px;
+  }
+
+  .slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  input[type=range] {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 4px;
+    background: var(--border);
+    border-radius: 4px;
+    outline: none;
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    background: var(--accent);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 0 4px rgba(240,165,0,0.15);
+    transition: box-shadow 0.2s;
+  }
+
+  input[type=range]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 8px rgba(240,165,0,0.2);
+  }
+
+  .slider-value {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    color: var(--accent);
+    margin-top: 16px;
+    font-weight: 700;
+  }
+
+  /* NAV BUTTONS */
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+    gap: 12px;
+  }
+
+  .btn-back {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 12px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+
+  .btn-back:hover {
+    border-color: var(--border-light);
+    color: var(--text);
+  }
+
+  .btn-next {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s;
+    margin-left: auto;
+  }
+
+  .btn-next:hover {
+    background: #ffb820;
+    transform: translateY(-1px);
+  }
+
+  .btn-next:disabled {
+    background: var(--border);
+    color: var(--dim);
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* LOADING */
+  #loading-screen {
+    text-align: center;
+    padding: 80px 20px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .spinner {
+    width: 48px;
+    height: 48px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 24px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-text {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .loading-sub {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* RESULTS */
+  #results-screen {
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .results-header {
+    text-align: center;
+    padding: 20px 0 48px;
+  }
+
+  .results-emoji {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+
+  .results-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .results-subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* TRACK SECTIONS */
+  .track-section {
+    margin-bottom: 32px;
+  }
+
+  .track-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .track-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .track-name {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .track-badge {
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  /* RESULT CARDS */
+  .result-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .result-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .result-card:hover {
+    border-color: var(--border-light);
+  }
+
+  .result-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+
+  .result-name {
+    font-weight: 600;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.3;
+  }
+
+  .result-match {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .result-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+
+  .result-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .meta-chip {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .result-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--accent);
+    text-decoration: none;
+    margin-top: 12px;
+    font-weight: 500;
+    transition: gap 0.2s;
+  }
+
+  .result-link:hover { gap: 10px; }
+
+  /* COLOR THEMES PER TRACK */
+  .track-uni .track-dot { background: var(--blue); }
+  .track-uni .track-badge { background: rgba(77,157,224,0.12); color: var(--blue); border: 1px solid rgba(77,157,224,0.2); }
+  .track-uni .result-card::before { background: var(--blue); }
+  .track-uni .result-match { background: rgba(77,157,224,0.12); color: var(--blue); }
+
+  .track-tec .track-dot { background: var(--green); }
+  .track-tec .track-badge { background: rgba(62,207,142,0.12); color: var(--green); border: 1px solid rgba(62,207,142,0.2); }
+  .track-tec .result-card::before { background: var(--green); }
+  .track-tec .result-match { background: rgba(62,207,142,0.12); color: var(--green); }
+
+  .track-online .track-dot { background: var(--purple); }
+  .track-online .track-badge { background: rgba(155,114,207,0.12); color: var(--purple); border: 1px solid rgba(155,114,207,0.2); }
+  .track-online .result-card::before { background: var(--purple); }
+  .track-online .result-match { background: rgba(155,114,207,0.12); color: var(--purple); }
+
+  .track-free .track-dot { background: var(--accent); }
+  .track-free .track-badge { background: rgba(240,165,0,0.12); color: var(--accent); border: 1px solid rgba(240,165,0,0.2); }
+  .track-free .result-card::before { background: var(--accent); }
+  .track-free .result-match { background: rgba(240,165,0,0.12); color: var(--accent); }
+
+  .track-gov .track-dot { background: var(--accent2); }
+  .track-gov .track-badge { background: rgba(224,92,58,0.12); color: var(--accent2); border: 1px solid rgba(224,92,58,0.2); }
+  .track-gov .result-card::before { background: var(--accent2); }
+  .track-gov .result-match { background: rgba(224,92,58,0.12); color: var(--accent2); }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 40px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    text-align: center;
+  }
+
+  .btn-restart {
+    display: block;
+    margin: 32px auto 0;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 12px 32px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+
+  .btn-restart:hover {
+    border-color: var(--border-light);
+    color: var(--text);
+  }
+
+  /* ERROR */
+  .error-box {
+    background: rgba(224,92,58,0.1);
+    border: 1px solid rgba(224,92,58,0.3);
+    border-radius: 12px;
+    padding: 20px 24px;
+    color: #f08070;
+    font-size: 14px;
+    margin-top: 20px;
+  }
+
+  /* HIDDEN */
+  .hidden { display: none !important; }
+
+  @media (max-width: 600px) {
+    .options-grid.cols-2 { grid-template-columns: 1fr; }
+    .question-card { padding: 28px 20px; }
+    header { padding: 40px 0 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="header-tag">🇨🇱 Orientador Vocacional Chile</div>
+    <h1>¿Qué deberías<br><em>estudiar</em>?</h1>
+    <p class="subtitle">Responde 8 preguntas y descubre tu camino real — desde una carrera universitaria hasta un curso gratuito del Estado.</p>
+  </header>
+
+  <div id="quiz-wrapper">
+    <!-- STEP INDICATOR -->
+    <div id="progress-wrap" class="hidden">
+      <div class="progress-label" id="progress-label">Pregunta 1 de 8</div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- QUIZ SCREEN -->
+    <div id="quiz-screen"></div>
+
+    <!-- LOADING -->
+    <div id="loading-screen" class="hidden">
+      <div class="spinner"></div>
+      <div class="loading-text">Analizando tu perfil…</div>
+      <div class="loading-sub">Buscando los mejores caminos para ti en Chile</div>
+    </div>
+
+    <!-- RESULTS -->
+    <div id="results-screen" class="hidden"></div>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    id: 'tiempo',
+    text: '¿Cuánto tiempo tienes disponible para estudiar?',
+    sub: 'Sin presión, lo importante es ser honesto/a.',
+    type: 'options',
+    options: [
+      { emoji: '⚡', label: 'Quiero resultados rápido', desc: 'Menos de 1 año', value: 'rapido' },
+      { emoji: '📅', label: '1 a 2 años', desc: 'Formación técnica o cursos', value: 'medio' },
+      { emoji: '🎓', label: '3 a 5 años', desc: 'Carrera larga, lo vale', value: 'largo' },
+      { emoji: '🤷', label: 'No lo sé aún', desc: 'Necesito explorar primero', value: 'indefinido' },
+    ]
+  },
+  {
+    id: 'dinero',
+    text: '¿Cómo es tu situación económica para estudiar?',
+    sub: 'Solo para orientar las recomendaciones.',
+    type: 'options',
+    cols: 2,
+    options: [
+      { emoji: '💸', label: 'Sin recursos ahora', desc: 'Solo opciones gratuitas', value: 'cero' },
+      { emoji: '🟡', label: 'Poco presupuesto', desc: 'Algo puedo invertir', value: 'poco' },
+      { emoji: '🟢', label: 'Puedo financiarme', desc: 'Con crédito o ahorros', value: 'medio' },
+      { emoji: '💼', label: 'Tengo respaldo', desc: 'No es un problema', value: 'alto' },
+    ]
+  },
+  {
+    id: 'situacion',
+    text: '¿Cuál es tu situación actual?',
+    sub: 'Esto cambia mucho las opciones disponibles.',
+    type: 'options',
+    options: [
+      { emoji: '🏫', label: 'Estoy en 4° medio', desc: 'Próximamente egresado/a', value: '4medio' },
+      { emoji: '📜', label: 'Ya egresé del colegio', desc: 'Sin estudios superiores aún', value: 'egresado' },
+      { emoji: '💼', label: 'Estoy trabajando', desc: 'Quiero estudiar y trabajar', value: 'trabajando' },
+      { emoji: '🔄', label: 'Cambio de carrera', desc: 'Tengo estudios previos', value: 'cambio' },
+    ]
+  },
+  {
+    id: 'actitud',
+    text: '¿Cómo describirías tu forma de aprender?',
+    sub: 'No hay respuesta correcta, solo tu estilo.',
+    type: 'options',
+    cols: 2,
+    options: [
+      { emoji: '🛠️', label: 'Aprender haciendo', desc: 'Práctico, con las manos', value: 'practico' },
+      { emoji: '📚', label: 'Profundidad teórica', desc: 'Me gusta entender el por qué', value: 'teorico' },
+      { emoji: '🤝', label: 'En equipo', desc: 'Ambiente social me motiva', value: 'social' },
+      { emoji: '💻', label: 'A mi ritmo', desc: 'Online, flexible, autodidacta', value: 'autodidacta' },
+    ]
+  },
+  {
+    id: 'area',
+    text: '¿Hacia qué área te inclinas más?',
+    sub: 'Elige la que más te llama, aunque no estés seguro/a.',
+    type: 'options',
+    cols: 2,
+    options: [
+      { emoji: '💻', label: 'Tecnología y datos', desc: 'Programación, IA, sistemas', value: 'tech' },
+      { emoji: '🏥', label: 'Salud y bienestar', desc: 'Medicina, enfermería, nutrición', value: 'salud' },
+      { emoji: '🎨', label: 'Creatividad y diseño', desc: 'Arte, comunicación, UX', value: 'creativo' },
+      { emoji: '📊', label: 'Negocios y gestión', desc: 'Administración, ventas, finanzas', value: 'negocios' },
+      { emoji: '⚙️', label: 'Industria y obras', desc: 'Ingeniería, construcción', value: 'industria' },
+      { emoji: '🌿', label: 'Medio ambiente', desc: 'Agronomía, recursos naturales', value: 'ambiente' },
+    ]
+  },
+  {
+    id: 'meta',
+    text: '¿Cuál es tu objetivo principal?',
+    sub: 'Lo que más te importa lograr.',
+    type: 'options',
+    options: [
+      { emoji: '💰', label: 'Ganar buen sueldo rápido', desc: 'Necesito ingresos pronto', value: 'sueldo' },
+      { emoji: '🚀', label: 'Emprender algo propio', desc: 'Quiero crear mi propio negocio', value: 'emprender' },
+      { emoji: '🌎', label: 'Trabajar en el extranjero', desc: 'Una carrera con proyección global', value: 'exterior' },
+      { emoji: '❤️', label: 'Hacer algo con propósito', desc: 'Impacto social, lo que me apasiona', value: 'proposito' },
+    ]
+  },
+  {
+    id: 'modalidad',
+    text: '¿Qué modalidad de estudio prefieres?',
+    sub: 'O la que se adapta mejor a tu vida.',
+    type: 'options',
+    cols: 2,
+    options: [
+      { emoji: '🏛️', label: 'Presencial', desc: 'Campus, vida universitaria', value: 'presencial' },
+      { emoji: '🖥️', label: 'Online', desc: 'Desde casa, flexible', value: 'online' },
+      { emoji: '🔀', label: 'Híbrido', desc: 'Mezcla de ambos', value: 'hibrido' },
+      { emoji: '🌙', label: 'Vespertino/nocturno', desc: 'Estudiar después del trabajo', value: 'vespertino' },
+    ]
+  },
+  {
+    id: 'nem',
+    text: '¿Cómo fue tu rendimiento académico en el colegio?',
+    sub: 'Solo aplica si vas a postular a carreras universitarias.',
+    type: 'options',
+    cols: 2,
+    options: [
+      { emoji: '⭐', label: 'Muy bueno', desc: 'NEM alto, buen puntaje PAES', value: 'alto' },
+      { emoji: '📘', label: 'Regular', desc: 'Notas normales, podría mejorar', value: 'regular' },
+      { emoji: '📉', label: 'Bajo', desc: 'No fue mi mejor etapa', value: 'bajo' },
+      { emoji: '🚫', label: 'No aplica', desc: 'Ya tengo estudios previos', value: 'na' },
+    ]
+  },
+];
+
+let currentStep = 0;
+let answers = {};
+
+function init() {
+  showQuestion(0);
+  document.getElementById('progress-wrap').classList.remove('hidden');
+}
+
+function showQuestion(idx) {
+  const q = QUESTIONS[idx];
+  const total = QUESTIONS.length;
+  
+  document.getElementById('progress-label').textContent = `Pregunta ${idx + 1} de ${total}`;
+  document.getElementById('progress-bar').style.width = `${((idx) / total) * 100}%`;
+
+  const screen = document.getElementById('quiz-screen');
+  screen.innerHTML = '';
+  
+  const card = document.createElement('div');
+  card.className = 'question-card';
+  
+  let optionsHTML = '';
+  if (q.type === 'options') {
+    const gridClass = q.cols === 2 ? 'options-grid cols-2' : 'options-grid';
+    const opts = q.options.map(opt => `
+      <button class="option-btn ${answers[q.id] === opt.value ? 'selected' : ''}" 
+              onclick="selectOption('${q.id}', '${opt.value}', this)">
+        <span class="option-emoji">${opt.emoji}</span>
+        <span>
+          <div class="option-label">${opt.label}</div>
+          <div class="option-desc">${opt.desc}</div>
+        </span>
+      </button>
+    `).join('');
+    optionsHTML = `<div class="${gridClass}">${opts}</div>`;
+  }
+
+  card.innerHTML = `
+    <div class="q-number">Pregunta ${idx + 1}</div>
+    <div class="q-text">${q.text}</div>
+    <div class="q-sub">${q.sub}</div>
+    ${optionsHTML}
+  `;
+
+  screen.appendChild(card);
+
+  const nav = document.createElement('div');
+  nav.className = 'nav-row';
+  nav.innerHTML = `
+    ${idx > 0 ? `<button class="btn-back" onclick="goBack()">← Atrás</button>` : '<span></span>'}
+    <button class="btn-next" id="btn-next" onclick="goNext()" ${!answers[q.id] ? 'disabled' : ''}>
+      ${idx === total - 1 ? 'Ver mis resultados →' : 'Siguiente →'}
+    </button>
+  `;
+  screen.appendChild(nav);
+}
+
+function selectOption(qId, value, btn) {
+  answers[qId] = value;
+  document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('btn-next').disabled = false;
+}
+
+function goNext() {
+  if (currentStep < QUESTIONS.length - 1) {
+    currentStep++;
+    showQuestion(currentStep);
+  } else {
+    startAnalysis();
+  }
+}
+
+function goBack() {
+  if (currentStep > 0) {
+    currentStep--;
+    showQuestion(currentStep);
+  }
+}
+
+function startAnalysis() {
+  document.getElementById('quiz-screen').classList.add('hidden');
+  document.getElementById('progress-wrap').classList.add('hidden');
+  document.getElementById('loading-screen').classList.remove('hidden');
+  setTimeout(() => {
+    const result = generarRecomendaciones(answers);
+    showResults(result);
+  }, 1800);
+}
+
+// ─── BASE DE DATOS ────────────────────────────────────────────────────
+const DB = {
+  universidad: {
+    tech: [
+      { nombre: 'Ingeniería Civil en Computación — USACH', descripcion: 'Una de las carreras de tecnología más valoradas en el mercado laboral chileno. La USACH es parte del CRUCH con aranceles cubiertos por becas estatales. Enfoque en software, redes e inteligencia artificial.', duracion: '5-6 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.usach.cl/ingenieria-civil-informatica', chips: ['CRUCH', 'PAES requerida', 'Alta demanda laboral'] },
+      { nombre: 'Ingeniería en Informática — INACAP', descripcion: 'Carrera con fuerte énfasis práctico y salida laboral rápida. INACAP tiene sedes en todo Chile y convenios con empresas tecnológicas. Posibilidad de continuar a licenciatura.', duracion: '4 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.inacap.cl/tportal/portales/tp4964b0e1bk102/uploadImg/File/OfertaAcademica/Ingenieria-Informatica.pdf', chips: ['Todo Chile', 'Práctico', 'Empleabilidad alta'] },
+      { nombre: 'Ingeniería en Ciencia de Datos — UAI', descripcion: 'Carrera nueva y muy demandada. La UAI tiene convenios con empresas y un enfoque en machine learning y analítica. Alta tasa de empleabilidad y sueldos sobre $1.5M al egreso.', duracion: '5 años', costo: '$680.000/mes aprox', link: 'https://www.uai.cl/carreras/ingenieria-en-ciencia-de-datos/', chips: ['IA y datos', 'Alta remuneración', 'Privada'] },
+    ],
+    salud: [
+      { nombre: 'Enfermería — Universidad de Chile', descripcion: 'La carrera de enfermería de la U de Chile es referente nacional. Gratuidad disponible, alta demanda en sistema público y privado, y posibilidad de especializarse post-título.', duracion: '5 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.uchile.cl/carreras/4965/enfermeria', chips: ['CRUCH', 'Alta demanda', 'Sistema público y privado'] },
+      { nombre: 'Nutrición y Dietética — PUC', descripcion: 'Pontificia Universidad Católica, una de las mejores del país. Carrera con alta valoración social y creciente demanda en el sector privado, clínicas y alimentación colectiva.', duracion: '5 años', costo: '$850.000/mes aprox', link: 'https://www.uc.cl/carreras/nutricion-y-dietetica/', chips: ['Top ranking', 'Privada CRUCH', 'CAE disponible'] },
+      { nombre: 'Kinesiología — UDEC', descripcion: 'Universidad de Concepción, referente en salud en el sur de Chile. Kinesiología con alta demanda en clínicas y deporte. Gratuidad disponible para alumnos del 60% más vulnerable.', duracion: '5 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.udec.cl/kinesiologia', chips: ['CRUCH', 'Gratuidad', 'Alta empleabilidad'] },
+    ],
+    creativo: [
+      { nombre: 'Diseño — Universidad de Chile', descripcion: 'La Facultad de Arquitectura y Urbanismo de la U de Chile tiene uno de los programas de diseño más reconocidos del país. Formación sólida en diseño gráfico, industrial y comunicación visual.', duracion: '5 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.uchile.cl/carreras/5049/diseno', chips: ['CRUCH', 'Referente nacional', 'Gratuidad posible'] },
+      { nombre: 'Diseño UX/UI — DUOC UC', descripcion: 'DUOC UC ofrece una carrera técnica en diseño digital con salida rápida al mercado. Fuerte enfoque en herramientas actuales como Figma, Adobe XD y prototipado.', duracion: '2.5 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.duoc.cl/carreras/diseno-grafico/', chips: ['DUOC UC', 'Práctico', 'Rápida salida laboral'] },
+    ],
+    negocios: [
+      { nombre: 'Administración de Empresas — USACH', descripcion: 'Carrera de alta demanda con enfoque en gestión, finanzas y emprendimiento. La USACH es CRUCH con posibilidad de gratuidad y tiene buenos rankings en empleabilidad.', duracion: '5 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.usach.cl/administracion', chips: ['CRUCH', 'Alta empleabilidad', 'Gratuidad posible'] },
+      { nombre: 'Ingeniería Comercial — PUC', descripcion: 'Una de las carreras más valoradas de Chile. La PUC tiene la escuela de negocios mejor rankeada del país. Abre puertas en banca, consultoría y multinacionales.', duracion: '5 años', costo: '$950.000/mes aprox', link: 'https://www.uc.cl/carreras/ingenieria-comercial/', chips: ['Top empleabilidad', 'Banca y finanzas', 'CAE disponible'] },
+    ],
+    industria: [
+      { nombre: 'Ingeniería en Construcción — UTEM', descripcion: 'UTEM es una universidad pública con fuerte enfoque en áreas técnicas. La ingeniería en construcción tiene alta demanda por el crecimiento del sector inmobiliario en Chile.', duracion: '5 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.utem.cl/carreras/ingenieria-en-construccion/', chips: ['CRUCH', 'Alta demanda', 'Obras civiles'] },
+      { nombre: 'Ingeniería Civil Industrial — UCHILE', descripcion: 'La carrera más versátil de Chile. Egresados trabajan en minería, logística, finanzas y tecnología. La U de Chile es la institución más prestigiosa del país.', duracion: '6 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.uchile.cl/carreras/4938/ingenieria-civil-industrial', chips: ['#1 Chile', 'Minería y logística', 'Gratuidad posible'] },
+    ],
+    ambiente: [
+      { nombre: 'Agronomía — Universidad de Chile', descripcion: 'La Facultad de Agronomía de la U de Chile es referente latinoamericano. Creciente demanda por agricultura sustentable, tecnología agrícola y exportaciones.', duracion: '5 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.uchile.cl/carreras/4919/agronomia', chips: ['CRUCH', 'Exportaciones', 'Sustentabilidad'] },
+      { nombre: 'Ingeniería en Recursos Naturales — UACH', descripcion: 'La Universidad Austral de Chile en Valdivia es el centro de excelencia en ciencias ambientales del país. Ideal para quienes quieren trabajar en áreas protegidas, forestales o pesca.', duracion: '5 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.uach.cl/oferta-academica/facultad-de-ciencias-forestales-y-recursos-naturales/', chips: ['CRUCH', 'Valdivia', 'Medio ambiente'] },
+    ],
+  },
+  tecnico: {
+    tech: [
+      { nombre: 'Técnico en Programación — DUOC UC', descripcion: 'Formación práctica en desarrollo web y aplicaciones móviles. DUOC tiene sedes en todo Chile y alta tasa de empleabilidad. Posibilidad de continuar carrera universitaria con convalidación.', duracion: '2.5 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.duoc.cl/carreras/analista-programador-computacional/', chips: ['Todo Chile', 'Práctico', 'Convalidable a universidad'] },
+      { nombre: 'Técnico en Ciberseguridad — INACAP', descripcion: 'Uno de los perfiles más escasos y mejor pagados del mercado TI chileno. INACAP ofrece certificaciones internacionales incluidas. Sueldo inicial sobre $800.000.', duracion: '2 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.inacap.cl/tportal/portales/tp4964b0e1bk102/uploadImg/File/OfertaAcademica/Ciberseguridad.pdf', chips: ['Alta remuneración', 'Escaso en mercado', 'Certs internacionales'] },
+    ],
+    salud: [
+      { nombre: 'Técnico en Enfermería — AIEP', descripcion: 'AIEP tiene sedes en todo Chile. El técnico en enfermería tiene alta demanda en hospitales, clínicas y hogares de adulto mayor. Formación en 2 años con práctica incluida.', duracion: '2 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.aiep.cl/carreras/tecnico-en-enfermeria/', chips: ['Todo Chile', 'Práctica incluida', 'Alta demanda'] },
+      { nombre: 'Técnico en Radiología — CFT Santo Tomás', descripcion: 'Uno de los CFT más grandes de Chile. Radiología tiene alta demanda en clínicas privadas y hospitales públicos. Sueldo inicial sobre $600.000.', duracion: '2 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.santotomas.cl/carreras/tecnico-en-radiologia/', chips: ['Nacional', 'Clínicas y hospitales', 'Buena remuneración'] },
+    ],
+    creativo: [
+      { nombre: 'Técnico en Diseño Gráfico — IPCHILE', descripcion: 'Formación en diseño con herramientas Adobe, identidad corporativa y diseño digital. IPChile tiene buena infraestructura y docentes con experiencia en agencias.', duracion: '2 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.ipchile.cl/carreras/diseno-grafico/', chips: ['Adobe Suite', 'Agencias', 'Portfolio profesional'] },
+      { nombre: 'Técnico en Producción Audiovisual — DUOC UC', descripcion: 'Para quienes quieren trabajar en cine, TV, publicidad o contenido digital. DUOC tiene estudios de grabación y equipos profesionales para la formación práctica.', duracion: '2.5 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.duoc.cl/carreras/produccion-audiovisual/', chips: ['Cine y TV', 'Equipos profesionales', 'Contenido digital'] },
+    ],
+    negocios: [
+      { nombre: 'Técnico en Administración de Empresas — INACAP', descripcion: 'Formación práctica en contabilidad, recursos humanos y gestión comercial. Alta demanda en Pymes y grandes empresas. Excelente relación costo-beneficio.', duracion: '2 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.inacap.cl/tportal/portales/tp4964b0e1bk102/uploadImg/File/OfertaAcademica/Administracion-de-Empresas.pdf', chips: ['Pymes', 'Contabilidad', 'RRHH'] },
+      { nombre: 'Técnico en Marketing Digital — AIEP', descripcion: 'Una de las carreras técnicas de mayor crecimiento. Formación en redes sociales, SEO, publicidad digital y e-commerce. Muy demandado por empresas de todos los rubros.', duracion: '2 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.aiep.cl/carreras/tecnico-en-marketing/', chips: ['Redes sociales', 'SEO/SEM', 'E-commerce'] },
+    ],
+    industria: [
+      { nombre: 'Técnico en Electricidad Industrial — INACAP', descripcion: 'Alta demanda en minería, construcción e industria. INACAP tiene talleres equipados y convenios con empresas del sector eléctrico. Sueldo inicial sobre $700.000.', duracion: '2 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.inacap.cl/tportal/portales/tp4964b0e1bk102/uploadImg/File/OfertaAcademica/Electricidad-Industrial.pdf', chips: ['Minería', 'Alta remuneración', 'Todo Chile'] },
+      { nombre: 'Técnico en Mecánica Automotriz — DUOC UC', descripcion: 'Chile tiene una industria automotriz en crecimiento. DUOC ofrece talleres modernos y prácticas en concesionarias. Salida laboral inmediata.', duracion: '2 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.duoc.cl/carreras/mecanica-automotriz/', chips: ['Concesionarias', 'Talleres modernos', 'Salida inmediata'] },
+    ],
+    ambiente: [
+      { nombre: 'Técnico en Medio Ambiente — INACAP', descripcion: 'Formación en gestión ambiental, tratamiento de residuos y normativa medioambiental chilena. Alta demanda en empresas mineras e industriales que deben cumplir normativas ambientales.', duracion: '2 años', costo: 'Gratuidad / CAE disponible', link: 'https://www.inacap.cl/tportal/portales/tp4964b0e1bk102/uploadImg/File/OfertaAcademica/Medio-Ambiente.pdf', chips: ['Minería', 'Normativa ambiental', 'Empresas industriales'] },
+    ],
+  },
+  curso_pago: {
+    tech: [
+      { nombre: 'Desarrollo Web Full Stack — Platzi', descripcion: 'Platzi es la plataforma líder en español para tecnología. Su ruta de desarrollo web incluye HTML, CSS, JavaScript, React y Node.js. Puedes completarla en 6-12 meses a tu ritmo.', duracion: '6-12 meses', costo: '$15.990/mes (plan experto)', link: 'https://platzi.com/escuela/desarrollo-web/', chips: ['En español', 'A tu ritmo', 'Comunidad activa'] },
+      { nombre: 'Google Data Analytics Certificate — Coursera', descripcion: 'Certificación oficial de Google en análisis de datos. Muy valorada por empleadores. Incluye SQL, hojas de cálculo, visualización de datos y R. Disponible con subtítulos en español.', duracion: '6 meses', costo: 'USD $49/mes', link: 'https://www.coursera.org/professional-certificates/google-data-analytics', chips: ['Certificación Google', 'SQL y R', 'Muy reconocida'] },
+      { nombre: 'Bootcamp Programación — DesafíoLatam', descripcion: 'Bootcamp chileno con fuerte presencia en Santiago. Full Stack JavaScript en modalidad intensiva. Tienen programa de financiamiento y alianzas con empresas para inserción laboral.', duracion: '4-6 meses', costo: '$490.000 total aprox', link: 'https://desafiolatam.com/', chips: ['Empresa chilena', 'Inserción laboral', 'Intensivo'] },
+    ],
+    salud: [
+      { nombre: 'Nutrición Clínica y Deportiva — Udemy', descripcion: 'Cursos de alto nivel en nutrición con enfoque práctico. Ideal para complementar estudios o reconvertirse. Udemy tiene ofertas frecuentes con cursos desde $5.000.', duracion: '20-40 horas', costo: '$5.000 - $15.000 (único pago)', link: 'https://www.udemy.com/courses/search/?q=nutricion', chips: ['Pago único', 'A tu ritmo', 'Certificado incluido'] },
+      { nombre: 'Psicología Positiva — Coursera', descripcion: 'Curso de la Universidad de Pennsylvania, una de las más reconocidas del mundo. Muy útil para orientadores, coaches y profesionales de salud mental. Certificado internacional.', duracion: '3 meses', costo: 'USD $49/mes', link: 'https://www.coursera.org/learn/positive-psychology', chips: ['UPenn', 'Certificado internacional', 'Muy valorado'] },
+    ],
+    creativo: [
+      { nombre: 'Ilustración y Diseño — Domestika', descripcion: 'Domestika es la plataforma líder en creatividad en español. Cursos de ilustración, diseño gráfico, UX, fotografía y más. Profesores de clase mundial. Precios accesibles.', duracion: '4-20 horas por curso', costo: '$5.000 - $20.000 por curso', link: 'https://www.domestika.org/es', chips: ['En español', 'Creatividad', 'Precio accesible'] },
+      { nombre: 'UX Design — Google Certificate (Coursera)', descripcion: 'Certificación oficial de Google en diseño de experiencia de usuario. Una de las más demandadas del mundo digital. Incluye proyectos reales para portafolio.', duracion: '6 meses', costo: 'USD $49/mes', link: 'https://www.coursera.org/professional-certificates/google-ux-design', chips: ['Certificación Google', 'Portfolio real', 'Alta demanda'] },
+    ],
+    negocios: [
+      { nombre: 'Marketing Digital — Google Activate', descripcion: 'Certificación de Google en marketing digital. Muy reconocida por agencias y empresas. Cubre SEO, SEM, analítica, redes sociales y estrategia digital.', duracion: '40 horas', costo: '$25.000/mes (Platzi)', link: 'https://learndigital.withgoogle.com/activate', chips: ['Certificación Google', 'SEO y SEM', 'Alta demanda'] },
+      { nombre: 'MBA Online — Universidad Adolfo Ibáñez', descripcion: 'La UAI tiene uno de los programas de negocios más reconocidos de Chile. Su MBA online permite estudiar sin dejar de trabajar con clases en vivo y casos reales.', duracion: '18 meses', costo: '$300.000/mes aprox', link: 'https://mba.uai.cl/', chips: ['Top Chile', 'Sin dejar de trabajar', 'Casos reales'] },
+    ],
+    industria: [
+      { nombre: 'AutoCAD y BIM — Udemy', descripcion: 'Software esencial para ingeniería y construcción. Los cursos de Udemy cubren AutoCAD 2D/3D y Revit para BIM. Muy valorados en el mercado laboral de construcción e ingeniería.', duracion: '30-60 horas', costo: '$5.000 - $15.000 (único pago)', link: 'https://www.udemy.com/courses/search/?q=autocad', chips: ['AutoCAD', 'BIM/Revit', 'Construcción e ingeniería'] },
+      { nombre: 'Gestión de Proyectos PMP — PMI', descripcion: 'La certificación PMP es gold standard en gestión de proyectos. Reconocida en todo el mundo, incluyendo minería y construcción en Chile. Aumenta sueldo en un 25% promedio.', duracion: '6 meses preparación', costo: 'USD $500 examen', link: 'https://www.pmi.org/certifications/project-management-pmp', chips: ['Certificación mundial', 'Sueldo +25%', 'Minería y construcción'] },
+    ],
+    ambiente: [
+      { nombre: 'Energías Renovables — Coursera (Duke University)', descripcion: 'Curso de Duke University sobre energías renovables y política energética. Chile es líder en solar y eólico en Latinoamérica, por lo que este perfil tiene alta demanda.', duracion: '3 meses', costo: 'USD $49/mes', link: 'https://www.coursera.org/specializations/renewable-energy', chips: ['Duke University', 'Solar y eólico', 'Alta demanda en Chile'] },
+    ],
+  },
+  curso_gratis: {
+    tech: [
+      { nombre: 'CS50 — Harvard University (edX)', descripcion: 'El curso de programación más famoso del mundo, completamente gratuito. Cubre Python, C, JavaScript, SQL y más. El certificado tiene costo pero el contenido es 100% gratis.', duracion: '10-20 semanas', costo: 'Gratuito (cert. USD $199 opcional)', link: 'https://cs50.harvard.edu/x/', chips: ['Harvard', '100% gratis', 'Reconocido mundialmente'] },
+      { nombre: 'Fundamentos de Python — Google (Coursera Auditoría)', descripcion: 'Google ofrece cursos que se pueden auditar gratis en Coursera. Python es el lenguaje más demandado en Chile para ciencia de datos y automatización.', duracion: '5 semanas', costo: 'Gratis (auditoría)', link: 'https://www.coursera.org/learn/python-crash-course', chips: ['Google', 'Python', 'Gratis en auditoría'] },
+      { nombre: 'freeCodeCamp — Desarrollo Web Completo', descripcion: 'Plataforma totalmente gratuita para aprender desarrollo web. Cubre HTML, CSS, JavaScript, React, Node y bases de datos. Tiene proyectos certificados y comunidad enorme.', duracion: 'A tu ritmo', costo: '100% Gratuito', link: 'https://www.freecodecamp.org/espanol/', chips: ['100% gratis', 'En español', 'Proyectos certificados'] },
+    ],
+    salud: [
+      { nombre: 'Primeros Auxilios — Cruz Roja Chilena', descripcion: 'La Cruz Roja Chile ofrece cursos gratuitos y de bajo costo en primeros auxilios, RCP y manejo de emergencias. Excelente para quienes quieren entrar al mundo de la salud.', duracion: '16 horas', costo: 'Gratuito / bajo costo', link: 'https://www.cruzroja.cl/', chips: ['Cruz Roja', 'Presencial', 'Certificado incluido'] },
+      { nombre: 'Salud Mental — Coursera (Yale)', descripcion: 'Yale ofrece "The Science of Well-Being" de forma gratuita. Es el curso más tomado en la historia de Coursera. Perfecto para quienes quieren explorar psicología y bienestar.', duracion: '10 semanas', costo: 'Gratis (auditoría)', link: 'https://www.coursera.org/learn/the-science-of-well-being', chips: ['Yale', 'Más popular Coursera', 'Bienestar mental'] },
+    ],
+    creativo: [
+      { nombre: 'Diseño Gráfico — Canva Design School', descripcion: 'Canva ofrece cursos gratuitos de diseño para principiantes y avanzados. Ideal para aprender los fundamentos del diseño visual sin costo. Muy útil para emprendedores y creadores.', duracion: 'A tu ritmo', costo: '100% Gratuito', link: 'https://www.canva.com/designschool/', chips: ['100% gratis', 'Desde cero', 'Emprendedores'] },
+      { nombre: 'Fotografía — Canal YouTube de Peter McKinnon', descripcion: 'Uno de los mejores recursos gratuitos para aprender fotografía y video en YouTube. En inglés pero con subtítulos. Complementado con tutoriales de Lightroom y edición.', duracion: 'A tu ritmo', costo: '100% Gratuito', link: 'https://www.youtube.com/@PeterMcKinnon', chips: ['YouTube', 'Fotografía y video', 'Inglés con subtítulos'] },
+    ],
+    negocios: [
+      { nombre: 'Emprendimiento — Corfo / ChileEmprende', descripcion: 'Corfo y ChileEmprende ofrecen talleres gratuitos de emprendimiento en todo Chile. Incluyen canvas de negocio, finanzas básicas y cómo acceder a fondos públicos.', duracion: 'Talleres de 8-20 horas', costo: '100% Gratuito', link: 'https://www.corfo.cl/sites/cpp/talleres', chips: ['Gobierno Chile', 'Presencial', 'Todo Chile'] },
+      { nombre: 'Finanzas Personales — Khan Academy', descripcion: 'Khan Academy tiene un módulo completo de finanzas personales y economía básica en español. Excelente punto de partida para entender el mundo de los negocios y las inversiones.', duracion: 'A tu ritmo', costo: '100% Gratuito', link: 'https://es.khanacademy.org/college-careers-more/personal-finance', chips: ['100% gratis', 'En español', 'Finanzas básicas'] },
+    ],
+    industria: [
+      { nombre: 'Electricidad Básica — YouTube (Ingeniería en Casa)', descripcion: 'Canales chilenos y latinos en YouTube ofrecen contenido de calidad sobre electricidad e instalaciones. Ideal para comenzar antes de una carrera técnica formal.', duracion: 'A tu ritmo', costo: '100% Gratuito', link: 'https://www.youtube.com/results?search_query=electricidad+basica+instalaciones', chips: ['YouTube', '100% gratis', 'En español'] },
+      { nombre: 'Introducción a la Ingeniería — MIT OpenCourseWare', descripcion: 'El MIT publica todos sus cursos en línea de forma gratuita. Ideal para explorar si la ingeniería es tu vocación antes de comprometerte con una carrera larga.', duracion: 'A tu ritmo', costo: '100% Gratuito', link: 'https://ocw.mit.edu/', chips: ['MIT', '100% gratis', 'Inglés'] },
+    ],
+    ambiente: [
+      { nombre: 'Cambio Climático — Coursera (Universidad de Columbia)', descripcion: 'Columbia ofrece cursos gratuitos sobre cambio climático y sustentabilidad. Muy valorados por ONGs, empresas mineras y organismos públicos en Chile.', duracion: '5 semanas', costo: 'Gratis (auditoría)', link: 'https://www.coursera.org/learn/climate-change', chips: ['Columbia University', 'Sustentabilidad', 'Gratis en auditoría'] },
+    ],
+  },
+  gobierno: {
+    cero: [
+      { nombre: 'SENCE — Cursos de Capacitación Gratuitos', descripcion: 'El Servicio Nacional de Capacitación y Empleo ofrece cientos de cursos gratuitos para personas desempleadas y trabajadores. Incluye computación, electricidad, gastronomía, construcción y más.', duracion: '40-200 horas', costo: '100% Gratuito', link: 'https://www.sence.cl/portal/Capacitacion/Ciudadano', chips: ['Gobierno Chile', '100% gratis', 'Todo Chile'] },
+      { nombre: 'Beca Gratuidad — MINEDUC', descripcion: 'Si perteneces al 60% de menores ingresos puedes estudiar gratis en universidades, IP y CFT del CRUCH y adscritos. Cubre arancel y matrícula completa. Aplica con tu FUAS.', duracion: 'Toda la carrera', costo: '100% Gratuito', link: 'https://portal.becasycreditos.cl/', chips: ['60% menores ingresos', 'Cubre arancel completo', 'FUAS requerido'] },
+      { nombre: 'Programa Más Capaz — SENCE', descripcion: 'Programa especial para mujeres y jóvenes vulnerables. Incluye capacitación técnica, apoyo psicosocial y vinculación laboral. Priorizando a personas de mayor vulnerabilidad social.', duracion: '3-6 meses', costo: '100% Gratuito', link: 'https://www.sence.cl/portal/Capacitacion/Ciudadano/MasCapaz', chips: ['Mujeres y jóvenes', 'Apoyo psicosocial', 'Inserción laboral'] },
+    ],
+    poco: [
+      { nombre: 'Beca Bicentenario — MINEDUC', descripcion: 'Beca estatal para estudiantes con buen rendimiento académico de los primeros 7 deciles. Cubre parte importante del arancel en universidades del CRUCH. Se postula vía FUAS en noviembre.', duracion: 'Toda la carrera', costo: 'Subsidio parcial del arancel', link: 'https://portal.becasycreditos.cl/index2.php?id_seccion=3&id_portal=28&id_contenido=5', chips: ['7 deciles', 'CRUCH', 'FUAS noviembre'] },
+      { nombre: 'CAE — Crédito con Aval del Estado', descripcion: 'Crédito universitario con respaldo del Estado. Tasa de interés fijada en 2%. Se empieza a pagar 18 meses después de egresar y solo si tienes ingresos. Disponible en universidades y CFT acreditados.', duracion: 'Toda la carrera', costo: 'Crédito al 2% anual', link: 'https://portal.becasycreditos.cl/index2.php?id_seccion=3&id_portal=28&id_contenido=6', chips: ['2% interés', 'Pago post-egreso', 'Instituciones acreditadas'] },
+    ],
+    medio: [
+      { nombre: 'Beca Juan Gómez Millas', descripcion: 'Beca para alumnos destacados de los primeros 7 deciles socioeconómicos. Aplica en universidades privadas no CRUCH acreditadas. Una de las becas de mayor cobertura.', duracion: 'Toda la carrera', costo: 'Hasta $1.150.000/año de subsidio', link: 'https://portal.becasycreditos.cl/', chips: ['Privadas acreditadas', 'Alto rendimiento', 'FUAS'] },
+    ],
+    alto: [
+      { nombre: 'Becas Chile — ANID', descripcion: 'Programa de becas para estudios de postgrado en el extranjero. Financia magíster, doctorado y postdoctorado en las mejores universidades del mundo. Muy competitivo pero transformador.', duracion: '1-4 años en el extranjero', costo: 'Financiamiento completo', link: 'https://www.anid.cl/capital-humano/becas-chile/', chips: ['Postgrado exterior', 'Financiamiento total', 'Muy competitivo'] },
+    ],
+  }
+};
+
+function generarRecomendaciones(a) {
+  const area = a.area || 'tech';
+  const dinero = a.dinero || 'poco';
+  const tiempo = a.tiempo || 'medio';
+  const situacion = a.situacion || 'egresado';
+  const meta = a.meta || 'sueldo';
+  const actitud = a.actitud || 'practico';
+  const modalidad = a.modalidad || 'hibrido';
+  const nem = a.nem || 'regular';
+
+  // ─ Resumen de perfil
+  const areaLabels = { tech: 'tecnología', salud: 'salud', creativo: 'diseño y creatividad', negocios: 'negocios', industria: 'industria y obras', ambiente: 'medio ambiente' };
+  const metaLabels = { sueldo: 'conseguir buenos ingresos rápidamente', emprender: 'emprender su propio negocio', exterior: 'trabajar en el extranjero', proposito: 'generar impacto social' };
+  const perfil_resumen = `Perfil orientado hacia ${areaLabels[area]}, con motivación principal de ${metaLabels[meta]}. ${dinero === 'cero' ? 'Su situación económica actual requiere priorizar opciones gratuitas o con becas del Estado.' : dinero === 'poco' ? 'Puede acceder a opciones con apoyo estatal como CAE o becas.' : 'Tiene flexibilidad económica para explorar distintas modalidades.'}`;
+
+  // ─ Camino recomendado
+  let camino_recomendado = 'Carrera Técnica + Cursos Online';
+  if (tiempo === 'largo' && nem === 'alto') camino_recomendado = 'Universidad + Becas del Estado';
+  else if (tiempo === 'rapido' || dinero === 'cero') camino_recomendado = 'Cursos Gratuitos + Programas SENCE';
+  else if (actitud === 'autodidacta' || modalidad === 'online') camino_recomendado = 'Cursos Online + Técnico Profesional';
+  else if (meta === 'emprender') camino_recomendado = 'Cursos Pagados + Programas Corfo/ChileEmprende';
+
+  // ─ Seleccionar items por área
+  const uniItems = DB.universidad[area] || DB.universidad.tech;
+  const tecItems = DB.tecnico[area] || DB.tecnico.tech;
+  const pagoItems = DB.curso_pago[area] || DB.curso_pago.tech;
+  const gratisItems = DB.curso_gratis[area] || DB.curso_gratis.tech;
+
+  // Gobierno depende del dinero
+  const govKey = ['cero','poco'].includes(dinero) ? dinero : (dinero === 'medio' ? 'medio' : 'alto');
+  const govItems = DB.gobierno[govKey] || DB.gobierno.cero;
+
+  // ─ Calcular match scores
+  function matchScore(tipo) {
+    let score = 'Medio';
+    if (tipo === 'universidad' && tiempo === 'largo' && nem !== 'bajo') score = 'Alto';
+    if (tipo === 'universidad' && (tiempo === 'rapido' || dinero === 'cero')) score = 'Bajo';
+    if (tipo === 'tecnico' && ['medio','rapido'].includes(tiempo)) score = 'Alto';
+    if (tipo === 'tecnico' && actitud === 'practico') score = 'Alto';
+    if (tipo === 'curso_pago' && actitud === 'autodidacta') score = 'Alto';
+    if (tipo === 'curso_pago' && dinero === 'cero') score = 'Bajo';
+    if (tipo === 'curso_gratis' && dinero === 'cero') score = 'Alto';
+    if (tipo === 'curso_gratis' && actitud === 'autodidacta') score = 'Alto';
+    if (tipo === 'gobierno' && ['cero','poco'].includes(dinero)) score = 'Alto';
+    return score;
+  }
+
+  const uniMatch = matchScore('universidad');
+  const tecMatch = matchScore('tecnico');
+  const pagoMatch = matchScore('curso_pago');
+  const gratisMatch = matchScore('curso_gratis');
+  const govMatch = matchScore('gobierno');
+
+  return {
+    perfil_resumen,
+    camino_recomendado,
+    tracks: [
+      {
+        tipo: 'universidad',
+        titulo: 'Carreras Universitarias',
+        items: uniItems.slice(0,2).map(i => ({ ...i, match: uniMatch }))
+      },
+      {
+        tipo: 'tecnico',
+        titulo: 'Técnico Profesional',
+        items: tecItems.slice(0,2).map(i => ({ ...i, match: tecMatch }))
+      },
+      {
+        tipo: 'curso_pago',
+        titulo: 'Cursos Online de Pago',
+        items: pagoItems.slice(0,2).map(i => ({ ...i, match: pagoMatch }))
+      },
+      {
+        tipo: 'curso_gratis',
+        titulo: 'Cursos Gratuitos',
+        items: gratisItems.slice(0,2).map(i => ({ ...i, match: gratisMatch }))
+      },
+      {
+        tipo: 'gobierno',
+        titulo: 'Programas Gubernamentales',
+        items: govItems.slice(0,2).map(i => ({ ...i, match: govMatch }))
+      },
+    ]
+  };
+}
+
+function showResults(data) {
+  document.getElementById('loading-screen').classList.add('hidden');
+  
+  const trackConfig = {
+    universidad: { clase: 'track-uni', icon: '🎓', label: 'Universidades' },
+    tecnico: { clase: 'track-tec', icon: '⚙️', label: 'Técnico Profesional' },
+    curso_pago: { clase: 'track-online', icon: '💻', label: 'Cursos Pagados Online' },
+    curso_gratis: { clase: 'track-free', icon: '🆓', label: 'Cursos Gratuitos' },
+    gobierno: { clase: 'track-gov', icon: '🇨🇱', label: 'Programas Gubernamentales' },
+  };
+
+  let tracksHTML = '';
+  for (const track of data.tracks) {
+    const cfg = trackConfig[track.tipo] || { clase: 'track-free', icon: '📌', label: track.titulo };
+    const itemsHTML = track.items.map(item => `
+      <div class="result-card">
+        <div class="result-card-top">
+          <div class="result-name">${item.nombre}</div>
+          <div class="result-match">${item.match} match</div>
+        </div>
+        <div class="result-desc">${item.descripcion}</div>
+        <div class="result-meta">
+          ${item.chips.map(c => `<span class="meta-chip">${c}</span>`).join('')}
+          ${item.duracion ? `<span class="meta-chip">⏱ ${item.duracion}</span>` : ''}
+          ${item.costo ? `<span class="meta-chip">💰 ${item.costo}</span>` : ''}
+        </div>
+        ${item.link ? `<a class="result-link" href="${item.link}" target="_blank" rel="noopener">${cfg.icon} Ver más →</a>` : ''}
+      </div>
+    `).join('');
+
+    tracksHTML += `
+      <div class="track-section ${cfg.clase}">
+        <div class="track-label">
+          <div class="track-dot"></div>
+          <div class="track-name">${cfg.icon} ${cfg.label}</div>
+          <span class="track-badge">${track.items.length} opciones</span>
+        </div>
+        ${itemsHTML}
+      </div>
+    `;
+  }
+
+  const screen = document.getElementById('results-screen');
+  screen.innerHTML = `
+    <div class="results-header">
+      <div class="results-emoji">✨</div>
+      <div class="results-title">Tu mapa de caminos</div>
+      <div class="results-subtitle">${data.perfil_resumen}</div>
+    </div>
+    ${tracksHTML}
+    <div class="disclaimer">
+      Esta orientación es un punto de partida basado en tu perfil. Te recomendamos verificar directamente con las instituciones la disponibilidad, requisitos actualizados y fechas de postulación.
+    </div>
+    <button class="btn-restart" onclick="restartQuiz()">↺ Volver a empezar</button>
+  `;
+  screen.classList.remove('hidden');
+}
+
+function restartQuiz() {
+  currentStep = 0;
+  answers = {};
+  document.getElementById('results-screen').classList.add('hidden');
+  document.getElementById('loading-screen').classList.add('hidden');
+  document.getElementById('quiz-screen').classList.remove('hidden');
+  document.getElementById('progress-wrap').classList.remove('hidden');
+  showQuestion(0);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+init();
+</script>
+</body>
+</html>
